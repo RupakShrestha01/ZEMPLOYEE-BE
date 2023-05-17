@@ -21,16 +21,13 @@
             <section class="row">
 
 <!-- Display the search results -->
-<h3>Search Results:</h3>
 <div>
+<h3>Search Results:</h3>
     <g:each in="${employee}" >
-        <div>${employee.firstName}  ${employee.lastName}  
-       
-        </div>
-
-
+    ${employee.firstName}  ${employee.lastName}  
     </g:each>
 </div>
+
             </section>
         </div>
     </div>

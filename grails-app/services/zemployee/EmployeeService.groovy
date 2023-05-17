@@ -9,14 +9,14 @@ class EmployeeService {
         if (normalizedQuery) {
         def results = Employee.createCriteria().list {
             or {
-                ilike("firstName", "%${normalizedQuery}%") // Search by firstName (case-insensitive)
-                ilike("designation", "%${normalizedQuery}%") // Search by designation (case-insensitive)
+                ilike("firstName", "${normalizedQuery}%") // Search by firstName (case-insensitive)
+                ilike("designation", "${normalizedQuery}%") // Search by designation (case-insensitive)
             }
         }
 
-            return results
+            return results 
         }else{
              return [] // Return an empty list if the query is null
-            }
+        }
     }
 }
