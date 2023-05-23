@@ -1,6 +1,6 @@
 package zemployee
-import grails.rest.*
-@Resource(uri='/subordinate')
+// import grails.rest.*
+// @Resource(uri='/subordinate')
 class Subordinate {
     String firstName
     String lastName
