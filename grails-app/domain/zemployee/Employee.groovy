@@ -11,7 +11,7 @@ class Employee {
     String phoneNumber
     String address
     String email
-    static hasMany = [subordinates: Subordinate]
+    static belongsTo = [team: Team, department: Department, teamLead : TeamLead]
     static constraints = {
         firstName nullable: false
         lastName nullable: false
