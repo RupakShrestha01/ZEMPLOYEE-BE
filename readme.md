@@ -14,7 +14,7 @@ Before starting, make sure you have the following prerequisites installed on you
 
 Clone the GitHub repository
 
-`git clone [https://github.com/RupakShrestha01/ZEMPLOYEE-BE](https://github.com/RupakShrestha01/ZEMPLOYEE-BE)`
+`git clone [https://github.com/RupakShrestha01/ZEMPLOYEE-BE]`(https://github.com/RupakShrestha01/ZEMPLOYEE-BE)
 
 ## Step 2: Add MySQL Connector Dependency
 
@@ -35,17 +35,17 @@ Clone the GitHub repository
 1. Locate the dataSource section.
 1. Update the url, username, and password properties to match your MySQL database configuration. For example:
 
-dataSource:
-pooled: true
-jmxExport: true
-driverClassName: com.mysql.cj.jdbc.Driver  
- username: ‘your username’
-password: ‘your password’
-environments:  
- development:  
- dataSource:
-dbCreate: update
-url: 'jdbc:mysql://localhost/zemployee? useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShif t=true&useLegacyDatetimeCode=false&serverTimezone=UTC&jdbcCompliantT runcation=false'
+`dataSource:`
+`pooled: true`
+`jmxExport: true`
+`driverClassName: com.mysql.cj.jdbc.Driver  `
+`username: ‘your username’`
+`password: ‘your password’`
+`environments:  `
+`development:  `
+`dataSource:`
+`dbCreate: update`
+`url: 'jdbc:mysql://localhost/zemployee? useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShif t=true&useLegacyDatetimeCode=false&serverTimezone=UTC&jdbcCompliantT runcation=false'`
 
 4. Replace ‘your username’ and ‘your password’ with the appropriate credentials.
 5. Save the application.yml file.
