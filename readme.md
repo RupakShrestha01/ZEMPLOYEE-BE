@@ -14,7 +14,7 @@ Before starting, make sure you have the following prerequisites installed on you
 
 Clone the GitHub repository
 
-git clone h[ttps://github.com/RupakShrestha01/ZEMPLOYEE-BE](https://github.com/RupakShrestha01/ZEMPLOYEE-BE)
+`git clone [https://github.com/RupakShrestha01/ZEMPLOYEE-BE](https://github.com/RupakShrestha01/ZEMPLOYEE-BE)`
 
 ## Step 2: Add MySQL Connector Dependency
 
@@ -22,12 +22,12 @@ git clone h[ttps://github.com/RupakShrestha01/ZEMPLOYEE-BE](https://github.com/R
 1. Locate the dependencies section.
 1. Add the following line to include the MySQL Connector/J dependency: 4.
 
-implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+`implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'`
 
 1. Save the build.gradle file.
 1. Run the following command to download and install the dependency:
 
-grails compile
+`grails compile`
 
 ## Step 3: Configure the Database
 
@@ -36,19 +36,19 @@ grails compile
 1. Update the url, username, and password properties to match your MySQL database configuration. For example:
 
 dataSource:
-    pooled: true
-    jmxExport: true
-    driverClassName: com.mysql.cj.jdbc.Driver   
-    username: ‘your username’
-    password: ‘your  password’
-environments:   
-    development:     
-        dataSource:
-            dbCreate: update
-            url: 'jdbc:mysql://localhost/zemployee? useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShif t=true&useLegacyDatetimeCode=false&serverTimezone=UTC&jdbcCompliantT runcation=false'
+pooled: true
+jmxExport: true
+driverClassName: com.mysql.cj.jdbc.Driver  
+ username: ‘your username’
+password: ‘your password’
+environments:  
+ development:  
+ dataSource:
+dbCreate: update
+url: 'jdbc:mysql://localhost/zemployee? useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShif t=true&useLegacyDatetimeCode=false&serverTimezone=UTC&jdbcCompliantT runcation=false'
 
-4. Replace ‘your username’ and ‘your  password’ with the appropriate credentials.
-4. Save the application.yml file.
+4. Replace ‘your username’ and ‘your password’ with the appropriate credentials.
+5. Save the application.yml file.
 
 ## Step 4: Create the zemployee Database
 
@@ -56,7 +56,7 @@ environments:
 1. Connect to your MySQL database server using the appropriate credentials.
 1. Execute the following SQL command to create the zemployee database:
 
-CREATE DATABASE zemployee;
+`CREATE DATABASE zemployee;`
 
 1. Verify that the zemployee database has been created successfully.
 
@@ -66,9 +66,9 @@ To verify that the configuration is correct and the project is set up properly, 
 
 1. Run the following command to start the Grails application:
 
-grails run-app
+`grails run-app`
 
 2. Open a web browser and navigate to http://localhost:8080.
-2. If you see the Grails welcome page, it indicates that the project has been set up successfully.
+3. If you see the Grails welcome page, it indicates that the project has been set up successfully.
 
 Congratulations! You have successfully set up a Grails project and configured it to use the MySQL database with the zemployee name. You can now start developing your application using Grails and utilize the zemployee database for your needs.
