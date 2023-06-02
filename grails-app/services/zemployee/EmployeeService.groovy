@@ -2,6 +2,7 @@ package zemployee
 import grails.gorm.transactions.Transactional
 
 @Transactional(readOnly = true)
+
 class EmployeeService {
 
     def searchEmployee(String query) {
@@ -12,9 +13,16 @@ class EmployeeService {
                 ilike("firstName", "${normalizedQuery}%") // Search by firstName (case-insensitive)
                 ilike("designation", "${normalizedQuery}%") // Search by designation (case-insensitive)
             }
-        }
+        }           
+        // def teamNames = [] // Initialize an empty array
 
-            return results 
+        // for (team in results.teamLead) {
+        //     teamNames << team.name // Add team.name to the array
+        // }
+
+        
+        //     return [results,teamNames]
+        return results
         }else{
              return [] // Return an empty list if the query is null
         }
