@@ -1,11 +1,11 @@
 package zemployee 
 
 class Department{
-    String departName
+    String name
     static hasMany = [teams: Team]
 
     static constraints = {
-        departName nullable: false
+        name nullable: false
     }
 
 }
