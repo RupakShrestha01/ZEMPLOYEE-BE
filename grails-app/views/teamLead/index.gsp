@@ -23,6 +23,11 @@
                     <g:if test="${flash.message}">
                         <div class="message" role="status">${flash.message}</div>
                     </g:if>
+
+
+    
+
+
                     <f:table collection="${teamLeadList}" />
 
                     <g:if test="${teamLeadCount > params.int('max')}">

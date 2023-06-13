@@ -33,6 +33,8 @@
                     <g:form resource="${this.employee}" method="POST">
                         <fieldset class="form">
                             <f:all bean="employee"/>
+                        <label for="myFile">File:</label>
+                        <input type="file" name="myFile" style="margin-top:10px;" />               
                         </fieldset>
                         <fieldset class="buttons">
                             <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

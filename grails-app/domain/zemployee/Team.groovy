@@ -2,11 +2,11 @@ package zemployee
 // import grails.rest.*
 // @Resource(uri='/subordinate')
 class Team {
-    String teamName
+    String name
     static belongsTo = [department: Department]
-    static hasMany = [teamLead : TeamLead, employees: Employee]
+    static hasMany = [teamLead : TeamLead]
 
     static constraints = {
-        teamName nullable: false
+        name nullable: false
     }
 }
