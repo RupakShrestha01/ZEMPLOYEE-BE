@@ -5,23 +5,15 @@ import grails.gorm.transactions.Transactional
 
 class EmployeeService {
 
-    def searchEmployee(String query) {
-        def normalizedQuery =  query?.trim()?.toLowerCase()
+    def searchEmployee(String employee) {
+        def normalizedQuery =  employee?.trim()?.toLowerCase()
         if (normalizedQuery) {
         def results = Employee.createCriteria().list {
             or {
                 ilike("firstName", "${normalizedQuery}%") // Search by firstName (case-insensitive)
-                ilike("designation", "${normalizedQuery}%") // Search by designation (case-insensitive)
+                 // Search by designation (case-insensitive)
             }
         }           
-        // def teamNames = [] // Initialize an empty array
-
-        // for (team in results.teamLead) {
-        //     teamNames << team.name // Add team.name to the array
-        // }
-
-        
-        //     return [results,teamNames]
         return results
         }else{
              return [] // Return an empty list if the query is null

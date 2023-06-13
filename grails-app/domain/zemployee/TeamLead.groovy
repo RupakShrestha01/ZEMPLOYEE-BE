@@ -12,8 +12,14 @@ class TeamLead {
     static hasMany = [employee: Employee]
 
     static constraints = {
-        name nullable: false, blank: false
+        firstName nullable: false
+        lastName nullable: false
+        gender nullable: false, inList : ["Male", "Female"]
         designation nullable: false
+        nationality nullable: false
+        phoneNumber nullable: false
+        address nullable: false
+        email nullable: false
     }
 
 }
