@@ -12,8 +12,7 @@ class EmployeeController {
         
         def employeeList = results.collect { employee ->
             [
-                id: employee.id,
-                name: employee.firstName,
+                employee : employee,
                 team: [
                   employee.team
                     // Include other team attributes here
