@@ -12,7 +12,13 @@ class EmployeeController {
         
         def employeeList = results.collect { employee ->
             [
-                employee : employee,
+                user : [
+                    employee,
+                ],
+                subordinate: [
+                    employee.hasProperty('employee') ? employee.employee : []  // Show empty array if employee.employee is null
+
+                ],
                 team: [
                   employee.team
                     // Include other team attributes here
@@ -22,6 +28,34 @@ class EmployeeController {
                 ]
             ]
         }
+
+        render employeeList as JSON
+    }
+       def ListAll(){
+        def results =Employee.list()
+        
+        def employeeList = results.collect { employee ->
+            [
+                id: employee.id,
+                firstName:employee.firstName,
+                lastName:employee.lastName,
+                gender: employee.gender,
+                designation:employee.designation,
+                email:employee.email,
+                phoneNumber: employee.phoneNumber,
+                address: employee.address,
+                isTeamlead: employee.isTeamlead,
+                nationality: employee.nationality,
+                subordinate: employee.hasProperty('employee') ? employee.employee : [],
+                team: [
+                  employee.team
+                    // Include other team attributes here
+                ],
+                teamLead : [
+                employee.teamLead
+                ]
+            ]
+         }
 
         render employeeList as JSON
     }
