@@ -9,8 +9,10 @@ class Employee {
     String address
     String email
     boolean isTeamlead
+    byte[] imageName  
+    String featuredImageUrl 
     static hasMany = [teamLead: TeamLead]
-    static belongsTo = [team: Team, department: Department]
+    static belongsTo = [team: Team, department: Department,teamLead: TeamLead ]
     static constraints = {
         firstName nullable: false
         lastName nullable: false
@@ -20,5 +22,7 @@ class Employee {
         phoneNumber nullable: false
         address nullable: false
         email nullable: false
+        featuredImageUrl nullable: true
+        imageName  nullable: true
     }
 }
