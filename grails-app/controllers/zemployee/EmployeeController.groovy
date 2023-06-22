@@ -32,21 +32,12 @@ class EmployeeController {
             notFound()
             return
         }
-         def imageFile = request.getFile('imageName')
-         if (imageFile) {
-            String originalFilename = imageFile.originalFilename
-            def filepath = "/Users/rupakshrestha/Desktop/temp/${originalFilename}"
-            imageFile.transferTo(new File(filepath))
-            employee.imageName = filepath
-
         try {
             employeeService.save(employee)
         } catch (ValidationException e) {
             respond employee.errors, view:'create'
             return
         }
-        }
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employee.id])
@@ -203,6 +194,8 @@ def getContentType(imagePath) {
                 address: employee.address,
                 isTeamlead: employee.isTeamlead,
                 nationality: employee.nationality,
+                imageUrl: employee.featuredImageUrl,
+
                 subordinate: employee.hasProperty('employee') ? employee.employee : [],
                 team: [
                   employee.team

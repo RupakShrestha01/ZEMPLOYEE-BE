@@ -30,7 +30,6 @@
                         </g:eachError>
                     </ul>
                     </g:hasErrors>
-
 <g:uploadForm name="uploadFeaturedImage" action="uploadFeaturedImage">
     <g:hiddenField name="id" value="${this.employee?.id}" />
     <g:hiddenField name="version" value="${this.employee?.version}" />
@@ -39,7 +38,6 @@
         <input class="save" type="submit" value="${message(code: 'employee.featuredImage.upload.label', default: 'Upload')}" />
     </fieldset>
 </g:uploadForm>
-
                 </div>
             </section>
         </div>

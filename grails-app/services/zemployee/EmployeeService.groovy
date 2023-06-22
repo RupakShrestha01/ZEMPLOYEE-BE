@@ -18,6 +18,5 @@ interface EmployeeService {
 
     Employee updateFeaturedImageUrl(Serializable id, Long version, String featuredImageUrl)
     
-    Optional<Employee> findByName(String filename)
 
 }

@@ -8,8 +8,7 @@ class Employee {
     String phoneNumber
     String address
     String email
-    boolean isTeamlead
-    byte[] imageName  
+    boolean isTeamlead 
     String featuredImageUrl 
     static hasMany = [teamLead: TeamLead]
     static belongsTo = [team: Team, department: Department,teamLead: TeamLead ]
@@ -23,6 +22,5 @@ class Employee {
         address nullable: false
         email nullable: false
         featuredImageUrl nullable: true
-        imageName  nullable: true
     }
 }

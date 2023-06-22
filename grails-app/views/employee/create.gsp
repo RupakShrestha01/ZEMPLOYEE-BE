@@ -33,60 +33,14 @@
                     </ul>
                     </g:hasErrors>
 
-                    <%-- <g:form resource="${this.employee}" method="POST">
+                    <g:form resource="${this.employee}" method="POST">
                         <fieldset class="form">
-                            <f:all bean="employee"/>            
+                            <f:all bean="employee" except="featuredImageUrl" />            
                         </fieldset>
                         <fieldset class="buttons">
                             <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                         </fieldset>
-                    </g:form> --%>
-        <g:form  controller="employee" resource="${this.employee}" method="post" enctype="multipart/form-data">
-        
-        <label for="firstName">First Name:</label>
-        <g:textField name="firstName" required="true" />
-
-        <label for="lastName">Last Name:</label>
-        <g:textField name="lastName" required="true" />
-
-        <label for="designation">Designation:</label>
-        <g:textField name="designation" required="true" />
-
-        <label for="gender">Gender:</label>
-        <g:select name="gender" from="${['Male', 'Female']}" required="true" />
-
-        <label for="nationality">Nationality:</label>
-        <g:textField name="nationality" required="true" />
-
-        <label for="phoneNumber">Phone Number:</label>
-        <g:textField name="phoneNumber" required="true" />
-
-        <label for="address">Address:</label>
-        <g:textField name="address" required="true" />
-
-        <label for="email">Email:</label>
-        <g:textField name="email" required="true" />
-
-        <label for="team">Team:</label>
-        <g:select name="team" from="${teamList}" optionKey="id" optionValue="name" required="true" /> 
-
-        <label for="isTeamlead">Is Team Lead:</label>
-        <g:checkBox name="isTeamlead" />
-
-        <label for="teamLead">Team Lead:</label>
-        <g:select name="teamLead" from="${teamleadList}" optionKey="id" optionValue="firstName" required="true" />
-
-        <label for="teamLead">Department:</label>
-        <g:select name="department" from="${departmentList}" optionKey="id" optionValue="name" required="true" />
-
-        <label for="imageName">Image:</label>
-        <input type="file" name="imageName" />
-
-    <fieldset class="buttons">
-        <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-    </fieldset>
-
-    </g:form >
+                    </g:form>
                 </div>
             </section>
         </div>
