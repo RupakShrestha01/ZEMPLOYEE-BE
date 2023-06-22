@@ -15,6 +15,6 @@ interface TeamLeadService {
 
     TeamLead save(TeamLead teamLead)
 
-
+    TeamLead updateFeaturedImageUrl(Serializable id, Long version, String featuredImageUrl)
 
 }
