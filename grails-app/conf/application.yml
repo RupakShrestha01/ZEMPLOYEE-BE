@@ -99,6 +99,11 @@ grails:
         taglib: none
         staticparts: none
 ---
+grails:
+  guides:
+    cdnFolder: /Users/rupakshrestha/Desktop/temp/
+    cdnRootUrl: http://localhost:8080
+---
 hibernate:
   cache:
     queries: false
