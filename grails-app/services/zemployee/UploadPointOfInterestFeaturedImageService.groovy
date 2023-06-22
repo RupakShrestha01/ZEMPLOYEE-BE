@@ -3,6 +3,7 @@ package zemployee
 import grails.config.Config
 import grails.core.support.GrailsConfigurationAware
 import groovy.transform.CompileStatic
+import java.util.UUID
 
 @SuppressWarnings('GrailsStatelessService')
 @CompileStatic
@@ -21,9 +22,8 @@ class UploadPointOfInterestFeaturedImageService implements GrailsConfigurationAw
 
     @SuppressWarnings('JavaIoPackageAccess')
     Employee uploadFeatureImage(FeaturedImageCommand cmd) {
-
-        String filename = cmd.featuredImageFile.originalFilename
-        String folderPath = "${cdnFolder}/pointOfInterest/${cmd.id}"
+        String filename = "${UUID.randomUUID()}.${cmd.featuredImageFile.originalFilename.split('\\.').last()}"
+        String folderPath = "${cdnFolder}"
         File folder = new File(folderPath)
         if ( !folder.exists() ) {
             folder.mkdirs()
