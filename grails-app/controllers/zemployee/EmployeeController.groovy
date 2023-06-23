@@ -149,7 +149,7 @@ def getContentType(imagePath) {
         }
     }
 
-    def viewImage() {
+def viewImage() {
         // Retrieve the dynamic image file name from the request parameters
         def fileName = params.fileName
         
@@ -178,8 +178,7 @@ def getContentType(imagePath) {
 
 
 
-
-    def ListAll(){
+def ListAll(){
         def results =Employee.list()
         
         def employeeList = results.collect { employee ->
