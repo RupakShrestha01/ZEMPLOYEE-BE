@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,15 +30,14 @@
                         </g:eachError>
                     </ul>
                     </g:hasErrors>
-
-                    <g:form resource="${this.employee}" method="POST">
-                        <fieldset class="form">
-                            <f:all bean="employee" except="featuredImageUrl" />            
-                        </fieldset>
-                        <fieldset class="buttons">
-                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                        </fieldset>
-                    </g:form>
+<g:uploadForm name="uploadFeaturedImage" action="uploadFeaturedImage">
+    <g:hiddenField name="id" value="${this.employee?.id}" />
+    <g:hiddenField name="version" value="${this.employee?.version}" />
+    <input type="file" name="featuredImageFile" />
+    <fieldset class="buttons">
+        <input class="save" type="submit" value="${message(code: 'employee.featuredImage.upload.label', default: 'Upload')}" />
+    </fieldset>
+</g:uploadForm>
                 </div>
             </section>
         </div>

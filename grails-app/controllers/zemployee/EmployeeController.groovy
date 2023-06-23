@@ -1,37 +1,184 @@
 package zemployee
-import grails.scaffolding.*
-import grails.converters.*
+import grails.validation.ValidationException
+import static org.springframework.http.HttpStatus.*
 import grails.converters.JSON
+import java.io.File
 class EmployeeController {
-    static scaffold = Employee
+
     EmployeeService employeeService
+    UploadPointOfInterestFeaturedImageService uploadPointOfInterestFeaturedImageService
+     
 
-    def search() {
-        def query = params.employee // Passing the search query as a request parameter
-        def results = employeeService.searchEmployee(query)
-        
-        def employeeList = results.collect { employee ->
-            [
-                user : [
-                    employee,
-                ],
-                subordinate: [
-                    employee.hasProperty('employee') ? employee.employee : []  // Show empty array if employee.employee is null
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-                ],
-                team: [
-                  employee.team
-                    // Include other team attributes here
-                ],
-                teamLead : [
-                employee.teamLead
-                ]
-            ]
+    def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond employeeService.list(params), model:[employeeCount: employeeService.count(), employeeList :employeeService.list(params)]
+    }
+
+    def show(Long id) {
+        respond employeeService.get(id)
+    }
+
+    def create() {
+    def teamList = Team.list()
+    def teamleadList = TeamLead.list()
+    def departmentList = Department.list()
+    respond new Employee(params), model: [teamList: teamList ,teamleadList : teamleadList, departmentList:departmentList]
+    }
+
+    def save(Employee employee) {
+        if (employee == null) {
+            notFound()
+            return
+        }
+        try {
+            employeeService.save(employee)
+        } catch (ValidationException e) {
+            respond employee.errors, view:'create'
+            return
+        }
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), employee.id])
+                redirect employee
+            }
+            '*'{ respond employee, [status: OK] }
+        }
+    }
+
+    def edit(Long id) {
+        respond employeeService.get(id)
+    }
+
+    def update(Employee employee) {
+        if (employee == null) {
+            notFound()
+            return
         }
 
-        render employeeList as JSON
+        try {
+            employeeService.save(employee)
+        } catch (ValidationException e) {
+            respond employee.errors, view:'edit'
+            return
+        }
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employee.id])
+                redirect employee
+            }
+            '*'{ respond employee, [status: OK] }
+        }
     }
-       def ListAll(){
+
+    def delete(Long id) {
+        if (id == null) {
+            notFound()
+            return
+        }
+
+        employeeService.delete(id)
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), id])
+                redirect action:"index", method:"GET"
+            }
+            '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    protected void notFound() {
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])
+                redirect action: "index", method: "GET"
+            }
+            '*'{ render status: NOT_FOUND }
+        }
+    }
+
+    def editFeaturedImage(Long id) {
+    Employee employee = employeeService.get(id)
+    if (!employee) {
+        notFound()
+        return
+    }
+    [employee: employee]
+}
+
+def uploadFeaturedImage(FeaturedImageCommand cmd) {
+    if (cmd.hasErrors()) {
+        respond(cmd, model: [employee: cmd], view: 'editFeaturedImage')
+        return
+    }
+
+    Employee employee = uploadPointOfInterestFeaturedImageService.uploadFeatureImage(cmd)
+    if (employee == null) {
+        notFound()
+        return
+    }
+
+    if (employee.hasErrors()) {
+        respond(employee, model: [employee: employee], view: 'editFeaturedImage')
+        return
+    }
+    redirect employee
+}
+
+def getContentType(imagePath) {
+        // Extract the file extension from the image path
+        def extension = imagePath.tokenize('/').last()?.tokenize('.').last()
+        
+        // Map common file extensions to content types
+        switch (extension?.toLowerCase()) {
+            case 'jpg':
+            case 'jpeg':
+                return 'image/jpeg'
+            case 'png':
+                return 'image/png'
+            case 'gif':
+                return 'image/gif'
+            case 'svg':
+                return 'image/svg+xml'
+            // Add more cases for other file extensions if needed
+            default:
+                return 'application/octet-stream'
+        }
+    }
+
+def viewImage() {
+        // Retrieve the dynamic image file name from the request parameters
+        def fileName = params.fileName
+        
+        // Ensure the file name is not null or empty
+        if (fileName) {
+            // Construct the image path based on the file name
+            def imagePath = "/Users/rupakshrestha/Desktop/temp/${fileName}"
+            
+        if (new File(imagePath).exists()) {
+            // Set the response content type based on the image file extension
+            response.setContentType(getContentType(imagePath))
+            
+            // Send the image file as response output
+            response.outputStream << new File(imagePath).newInputStream()
+            
+            // Ensure the response is properly closed
+            response.outputStream.flush()
+            response.outputStream.close()
+        } else {
+            // Handle the case where the image file is not found
+            render(status: 404, text: "Image not found")
+        }
+    }
+    }
+
+
+
+
+def ListAll(){
         def results =Employee.list()
         
         def employeeList = results.collect { employee ->
@@ -46,6 +193,8 @@ class EmployeeController {
                 address: employee.address,
                 isTeamlead: employee.isTeamlead,
                 nationality: employee.nationality,
+                imageUrl: employee.featuredImageUrl,
+
                 subordinate: employee.hasProperty('employee') ? employee.employee : [],
                 team: [
                   employee.team
@@ -59,5 +208,6 @@ class EmployeeController {
 
         render employeeList as JSON
     }
+
 
 }

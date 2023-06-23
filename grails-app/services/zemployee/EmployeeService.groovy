@@ -1,22 +1,22 @@
 package zemployee
-import grails.gorm.transactions.Transactional
 
-@Transactional(readOnly = true)
+import grails.gorm.services.Service
 
-class EmployeeService {
+@SuppressWarnings(['LineLength', 'UnusedVariable', 'SpaceAfterOpeningBrace', 'SpaceBeforeClosingBrace'])
+@Service(Employee)
+interface EmployeeService {
 
-    def searchEmployee(String employee) {
-        def normalizedQuery =  employee?.trim()?.toLowerCase()
-        if (normalizedQuery) {
-        def results = Employee.createCriteria().list {
-            or {
-                ilike("firstName", "${normalizedQuery}%") // Search by firstName (case-insensitive)
-                 // Search by designation (case-insensitive)
-            }
-        }           
-        return results
-        }else{
-             return [] // Return an empty list if the query is null
-        }
-    }
+    Employee get(Serializable id)
+
+    List<Employee> list(Map args)
+
+    Long count()
+
+    void delete(Serializable id)
+
+    Employee save(Employee employee)
+
+    Employee updateFeaturedImageUrl(Serializable id, Long version, String featuredImageUrl)
+    
+
 }
